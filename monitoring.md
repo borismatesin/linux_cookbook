@@ -9,7 +9,6 @@ wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | tee /etc/apt/keyr
 echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | tee -a /etc/apt/sources.list.d/grafana.list
 ls /etc/apt/sources.list.d/
 ls /etc/apt/sources.list.d/grafana.list
-apt get update
 apt update
 apt install grafana
 systemctl daemon-reload
