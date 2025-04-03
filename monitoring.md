@@ -18,7 +18,7 @@ systemctl enable grafana-server.service
 
 ## Prometheus
 
-```
+```sh
 sudo apt-get install prometheus prometheus-node-exporter
 systemctl start prometheus
 systemctl enable prometheus
@@ -37,7 +37,39 @@ nano /etc/prometheus/prometheus.yml
 
 ## SSL
 
-🚧 Work in progress 🚧
+```sh
+# always drop into root
+sudo -i
+
+# install apache and certbot
+apt install apache2 certbot python3-certbot-apache
+
+# enable HTTP proxying
+a2enmod proxy_http
+
+# create new site-available entry for FQDN (full URL)
+nano /etc/apache2/sites-available/<fqdn>.conf
+### insert content here
+
+apachectl configtest
+a2ensite <fqdn>.conf
+systemctl reload apache2
+```
+
+### Apache site template
+
+```xhtml
+<VirtualHost *:80>
+	ProxyPreserveHost On
+	ProxyRequests Off
+	ServerName <fqdn_with_underscores>
+	ServerAlias <fqdn>
+	DocumentRoot /var/www/html
+
+	ProxyPass / http://localhost:<port>/
+	ProxyPassReverse / http://localhost:<port>/
+</VirtualHost>
+```
 
 # Client
 
