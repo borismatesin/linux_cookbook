@@ -10,6 +10,7 @@ chmod 600 /swapfile
 mkswap /swapfile
 swapon /swapfile
 echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
-sysctl vm.swappiness=24 # set to a hair above alerting - alerting at 75%, swappiness at 24 (100 - 75 - 1)
+# set to a hair above alerting - alerting at 75%, swappiness at 24 (100 - 75 - 1)
+echo "vm.swappiness=24" >> /etc/sysctl.conf
 sysctl -p
 ```
