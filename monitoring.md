@@ -73,6 +73,44 @@ systemctl reload apache2
 
 # Client
 
+## precompiled
+
+```
+sh
+# prepare node exporter precompile
+sudo mkdir -p /opt/node_exporter
+cd /opt/node_exporter
+sudo wget https://github.com/prometheus/node_exporter/releases/download/v1.9.1/node_exporter-1.9.1.linux-amd64.tar.gz
+sudo tar xvf node_exporter-1.9.1.linux-amd64.tar.gz
+
+# create systemd service
+sudo nano /etc/systemd/system/node_exporter.service
+# fill with content
+
+sudo systemctl enable node_exporter
+sudo systemctl start node_exporter
+sudo systemctl status node_exporter
+```
+
+### systemd service
+```ini
+[Unit]
+Description=Prometheus Node Exporter
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=/opt/prometheus/node_exporter-1.9.1.linux-amd64/node_exporter
+
+[Install]
+WantedBy=multi-user.target
+```
+
+## docker
+
 ```sh
 # Add Docker's official GPG key:
 sudo apt-get update
@@ -101,7 +139,7 @@ sudo nano /opt/prometheus_node_exporter/docker-compose.yml
 sudo docker compose up -d -f /opt/prometheus_node_exporter/docker-compose.yml
 ```
 
-## docker compose yaml
+### docker compose yaml
 
 ```yaml
 version: '3.8'
