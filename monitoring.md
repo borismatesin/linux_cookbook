@@ -75,8 +75,7 @@ systemctl reload apache2
 
 ## precompiled
 
-```
-sh
+```sh
 # prepare node exporter precompile
 sudo mkdir -p /opt/node_exporter
 cd /opt/node_exporter
