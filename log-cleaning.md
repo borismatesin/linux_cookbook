@@ -9,5 +9,5 @@ find . ! -name "*.gz" -mtime +7 -exec sudo tar -czf {}.tar.gz {} \; -exec sudo r
 # Eraser
 
 ```sh
-find . -mtime +7 -exec -exec sudo rm {} \;
+find . -mtime +30 -exec -exec sudo rm {} \;
 ```
